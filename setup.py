@@ -4,7 +4,7 @@ setup(
     name='django-mako',
     version='1.0.0',
     packages=['djangomako'],
-    install_requires=['Django==1.11.3', 'Mako==1.0.7'],
+    install_requires=['Mako==1.0.7'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Django Developers',

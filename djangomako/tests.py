@@ -56,7 +56,8 @@ class TemplateTests(TestCase):
         request = request_factory.get('/mako')
 
         context = {'name': 'Jazzar'}
-        self.template.render(context=context, request=request)
+        result = self.template.render(context=context, request=request)
+        self.assertEqual(result, 'My name is Jazzar.')
 
     def test_render_request_only(self):
         template_string = '<% name = "Jazzar" %>My name is ${ name }.'
