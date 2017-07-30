@@ -27,7 +27,6 @@ class MakoEngine(object):
     This is the engine that handles getting the template and
     compiling the template the code.
     """
-
     def __init__(self, **options):
         """
         :param options: The template options that are passed to the
@@ -68,7 +67,7 @@ class MakoBackend(BaseEngine):
     # inside an installed application.
     app_dirname = 'mako'
 
-    def __init__(self, params):
+    def __init__(self, parameters):
         """
         Fetches template options, initializing BaseEngine properties,
         and assigning our Mako default settings.
@@ -78,7 +77,7 @@ class MakoBackend(BaseEngine):
         :param params: This is simply the template dict you
                        define in your settings file.
         """
-        params = params.copy()
+        params = parameters.copy()
         options = params.pop('OPTIONS').copy()
         super(MakoBackend, self).__init__(params)
 
@@ -133,7 +132,6 @@ class Template(object):
     won't provide a BaseTemplate class because it would have only one
     abstract method.
     """
-
     def __init__(self, template):
         self.template = template
 

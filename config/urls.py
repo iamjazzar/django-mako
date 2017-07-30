@@ -21,6 +21,5 @@ urlpatterns = [
     url(r'^(?P<engine>django|mako)?$', views.function_based_view),
     url(r'^class/(?P<engine>django|mako)?$',
         views.ClassBasedView.as_view(),
-        name='CBV'
-        ),
+        name='CBV'),
 ]
