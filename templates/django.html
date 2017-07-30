@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>This is a {{ engine }} template</title>
+</head>
+
+<body>
+    This dynamically generated using {{ engine }} templates syntax:
+    <ul>
+        {% for item in items %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    <p>
+        The value of 1+1 is {{ value }}, and it's also dynamically
+        generated.
+    </p>
+</body>
+
+</html>

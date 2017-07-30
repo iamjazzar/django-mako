@@ -59,7 +59,7 @@ class MakoEngine(object):
         return MakoTemplate(template_code, lookup=self.lookup)
 
 
-class MakoTemplates(BaseEngine):
+class MakoBackend(BaseEngine):
     """
     Mako Template Backend
     """
@@ -80,7 +80,7 @@ class MakoTemplates(BaseEngine):
         """
         params = params.copy()
         options = params.pop('OPTIONS').copy()
-        super(MakoTemplates, self).__init__(params)
+        super(MakoBackend, self).__init__(params)
 
         # Approximate size of the collection used to store templates.
         options.setdefault('collection_size', 5000)

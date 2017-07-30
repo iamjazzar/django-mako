@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
+
+from niceapp import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^(?P<engine>django|mako)?$', views.function_based_view,
+        name='home')
 ]
