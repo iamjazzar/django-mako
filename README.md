@@ -1,4 +1,4 @@
-# django-mako
+# django-mako [![CircleCI](https://circleci.com/gh/ahmedaljazzar/django-mako.svg?style=svg)](https://circleci.com/gh/ahmedaljazzar/django-mako)
 The simple, elegant Django Mako library
 Used base engine to create a template rendering class to be used like Django's TemplateView class. To understand how to use it, read [Custom backends on django](https://docs.djangoproject.com/en/1.8/topics/templates/#custom-backends).
 
