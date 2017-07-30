@@ -4,7 +4,7 @@
 </head>
 
 <body>
-    This dynamically generated using {{ engine }} templates syntax:
+    This dynamically generated using <strong>{{ engine }}</strong> templates syntax:
     <ul>
         {% for item in items %}
             <li>{{ item }}</li>
@@ -13,6 +13,12 @@
     <p>
         The value of 1+1 is {{ value }}, and it's also dynamically
         generated.
+    </p>
+    <p>
+       The home url for the CBV is:  <i><strong>{% url 'CBV' %}</strong></i>
+    </p>
+    <p>
+        The request object is <i><strong>{{ request }}</strong></i>
     </p>
 </body>
 
