@@ -1,2 +1,2 @@
-# jango-mako
+# django-mako
 The simple, elegant Django Mako library
