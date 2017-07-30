@@ -1,4 +1,5 @@
-from distutils.core import setup
+#!/usr/bin/env python
+from setuptools import setup
 
 setup(
     name='django-mako',
@@ -7,7 +8,7 @@ setup(
     install_requires=['Mako==1.0.7'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Django Developers',
+        'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
     ],
