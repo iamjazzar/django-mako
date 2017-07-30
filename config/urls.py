@@ -18,6 +18,6 @@ from django.conf.urls import url
 from niceapp import views
 
 urlpatterns = [
-    url(r'^(?P<engine>django|mako)?$', views.function_based_view,
-        name='home')
+    url(r'^(?P<engine>django|mako)?$', views.function_based_view),
+    url(r'^class/(?P<engine>django|mako)?$', views.ClassBasedView.as_view()),
 ]

@@ -1,4 +1,5 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render_to_response
+from django.views.generic import TemplateView
 
 
 def function_based_view(request, engine):
@@ -23,3 +24,30 @@ def function_based_view(request, engine):
         context=context,
         using=engine,
     )
+
+
+class ClassBasedView(TemplateView):
+    def get_template_names(self):
+        engine = self.kwargs['engine']
+        if engine == 'mako':
+            self.template_engine = 'mako'
+            return 'mako.html'
+
+        return 'django.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClassBasedView, self).get_context_data(**kwargs)
+        engine = kwargs['engine']
+
+        context.update({
+            'items': [
+                'Wow',
+                'This is awesome',
+                'Don\'t forget to bring some bread honey ;)',
+                'The requested template is: {}'.format(engine),
+            ],
+            'value': 1+1,
+            'engine': engine,
+        })
+
+        return context
