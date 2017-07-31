@@ -10,7 +10,7 @@ Enjoy! This shouldn't be tricky any more.
 To install the package as a requirement in your python environemnt just
 do
 ```
-pip install git+https://github.com/ahmedaljazzar/django-mako.git
+pip install djangomako
 ```
 
 ## Using the library

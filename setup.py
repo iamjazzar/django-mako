@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(
-    name='django-mako',
+    name='djangomako',
     version='1.0.0',
     packages=['djangomako'],
     install_requires=['Mako==1.0.7'],
