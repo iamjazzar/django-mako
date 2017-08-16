@@ -11,7 +11,7 @@ get_template() and optionally from_string().
 import tempfile
 
 from django.core.urlresolvers import reverse
-from django.contrib.staticfiles.storage import staticfiles_storage
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.template import TemplateDoesNotExist, TemplateSyntaxError
 from django.template.backends.base import BaseEngine
 from django.template.backends.utils import csrf_input_lazy, \
@@ -156,7 +156,7 @@ class Template(object):
             context['csrf_input'] = csrf_input_lazy(request)
             context['csrf_token'] = csrf_token_lazy(request)
 
-            context['static'] = staticfiles_storage.url
+            context['static'] = static
             context['url'] = reverse
 
         return self.template.render(**context)

@@ -1,6 +1,7 @@
 import os
 import tempfile
 
+from django.conf import settings
 from django.template import TemplateDoesNotExist, TemplateSyntaxError
 from django.test import TestCase, RequestFactory
 from mako.exceptions import SyntaxException
@@ -33,6 +34,35 @@ class MakoEngineTests(TestCase):
         template = self.engine.from_string(template_code)
         self.assertIsNotNone(template)
         self.assertIsInstance(template, MakoTemplate)
+
+
+class TemplateStaticTests(TestCase):
+    def setUp(self):
+        tmp_dir = tempfile.gettempdir()
+        template_name = 'good_template.html'
+
+        self.template_string = 'My name is ${name}, and my static ' \
+                               'url is ${ static(\'image.png\') }'
+        tmp_template = os.path.join(tmp_dir, template_name)
+        with open(tmp_template, 'w') as f:
+            f.write(self.template_string)
+
+        options = {'directories': [tmp_dir]}
+        self.engine = MakoEngine(**options)
+
+        template = self.engine.get_template(template_name)
+        self.template = Template(template)
+
+    def test_render(self):
+        request_factory = RequestFactory()
+        request = request_factory.get('/mako')
+
+        context = {'name': 'Jazzar'}
+        result = self.template.render(context=context, request=request)
+
+        self.assertIn('My name is Jazzar', result)
+        self.assertIn('image.png', result)
+        self.assertIn(settings.STATIC_URL, result)
 
 
 class TemplateTests(TestCase):
