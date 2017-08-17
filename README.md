@@ -58,7 +58,7 @@ exists:
     ```
 1. To include a static file url:
     ```mako
-    ${ static }/home.png
+    ${ static('image.png') }
     ```
 1. To reverse a url in the template:
     - Mako Template
