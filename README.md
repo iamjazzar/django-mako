@@ -2,7 +2,9 @@
 The simple, elegant Django Mako library
 Used base engine to create a template rendering class to be used like Django's TemplateView class. To understand how to use it, read [Custom backends on django](https://docs.djangoproject.com/en/1.8/topics/templates/#custom-backends).
 
-The current implementation assumes all system templates are Mako Template. Thus, when you start a new template make sure that the template language is Mako not Django. Later, when you decide to use another template backend like Django Template Backend, just pass `using='Django'` in your FBV or add `self.template_engine = 'mako'` in your CBV `__init__` method. 
+- The current implementation assumes all system templates are Mako Template. Thus, when you start a new template make sure that the template language is Mako not Django. 
+- If you want to use another template backend like Django Template Backend, just pass `using='Django'` in your FBV or add `template_engine = 'mako'` in your CBV. 
+
 Enjoy! This shouldn't be tricky any more.
 
 
@@ -11,10 +13,6 @@ To install the package as a requirement in your python environemnt just
 do
 ```
 pip install djangomako
-```
-or
-```
-easy_install djangomako
 ```
 
 
@@ -53,22 +51,21 @@ I passed some template variables to the context if the request objects
 exists:
 
 1. `CSRF_TOKEN` and `CSRF_INPUT`
-    ```mako
-    ${ csrf_input }
-    ${ csrf_token }
+    ```MAKO
+    ${ csrf_input }  ## {% csrf_token %} in Django templates.
+    ${ csrf_token }  ## {{ csrf_token }} in Django templates.
     ```
 1. To access the request:
-    ```mako
+    ```MAKO
     ${ request }
     ```
 1. To include a static file url:
-    ```mako
-    ${ static('image.png') }
+    ```MAKO
+    ${ static('image.png') }  ## {% static "image.png" %} in Django templates.
     ```
 1. To reverse a url in the template:
-    - Mako Template
-    ```mako
-    ${ url('home') }
+    ```MAKO
+    ${ url('home') }  ## {% url 'home' %} in Django templates.
     ```
 
 ## Detailed Examples?
