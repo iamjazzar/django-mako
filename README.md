@@ -12,6 +12,11 @@ do
 ```
 pip install djangomako
 ```
+or
+```
+easy_install djangomako
+```
+
 
 ## Using the library
 After installing the package in your python environment, navigate to 
