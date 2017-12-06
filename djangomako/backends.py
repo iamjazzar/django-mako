@@ -159,4 +159,7 @@ class Template(object):
             context['static'] = static
             context['url'] = reverse
 
+        # prevent 'self' to be passed as kwargs
+        # but keep a fallback to 'this'
+        context['this'] = context.pop('self', None)
         return self.template.render(**context)
