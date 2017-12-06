@@ -92,6 +92,9 @@ class MakoBackend(BaseEngine):
         # particular template URI
         options.setdefault('directories', self.template_dirs)
 
+        self.template_class = import_string(options.pop(
+            'template_class', 'djangomako.backends.Template'))
+
         self.engine = MakoEngine(**options)
 
     def from_string(self, template_code):
@@ -104,7 +107,7 @@ class MakoBackend(BaseEngine):
         :return: Returns a compiled Mako template.
         """
         try:
-            return Template(self.engine.from_string(template_code))
+            return self.template_class(self.engine.from_string(template_code))
         except mako_exceptions.SyntaxException as exc:
             raise TemplateSyntaxError(exc.args)
 
@@ -118,7 +121,7 @@ class MakoBackend(BaseEngine):
         :return: Compiled Template.
         """
         try:
-            return Template(self.engine.get_template(template_name))
+            return self.template_class(self.engine.get_template(template_name))
         except mako_exceptions.TemplateLookupException as exc:
             raise TemplateDoesNotExist(exc.args)
         except mako_exceptions.CompileException as exc:
