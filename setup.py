@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='djangomako',
-    version='1.0.1',
+    version='1.1.0',
     packages=['djangomako'],
     install_requires=['Mako==1.0.7'],
     classifiers=[
