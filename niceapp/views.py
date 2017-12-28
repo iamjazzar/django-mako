@@ -38,7 +38,7 @@ class ClassBasedView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ClassBasedView, self).get_context_data(**kwargs)
         engine = kwargs['engine']
-
+        print context
         context.update({
             'items': [
                 'Wow',

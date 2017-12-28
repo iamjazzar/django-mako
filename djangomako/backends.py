@@ -10,14 +10,16 @@ get_template() and optionally from_string().
 
 import tempfile
 
-from django.core.urlresolvers import reverse
+from django import get_version
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.template import TemplateDoesNotExist, TemplateSyntaxError
 from django.template.backends.base import BaseEngine
-from django.template.backends.utils import csrf_input_lazy, \
-    csrf_token_lazy
-
+from django.template.backends.utils import (
+    csrf_input_lazy,
+    csrf_token_lazy,
+)
 from django.utils.module_loading import import_string
+
 from mako.template import Template as MakoTemplate
 from mako import exceptions as mako_exceptions
 
@@ -151,6 +153,9 @@ class Template(object):
         if context is None:
             context = {}
 
+        context['static'] = static
+        context['url'] = self.get_reverse_url()
+
         if request is not None:
             # As Django doesn't have a global request object,
             # it's useful to put it in the context.
@@ -159,7 +164,13 @@ class Template(object):
             context['csrf_input'] = csrf_input_lazy(request)
             context['csrf_token'] = csrf_token_lazy(request)
 
-            context['static'] = static
-            context['url'] = reverse
-
         return self.template.render(**context)
+
+    @staticmethod
+    def get_reverse_url():
+        if get_version() < '2.0':
+            from django.core.urlresolvers import reverse
+        else:
+            from django.urls import reverse
+
+        return reverse
