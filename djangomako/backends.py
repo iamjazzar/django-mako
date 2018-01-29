@@ -21,6 +21,7 @@ from django.template.backends.utils import (
 from django.utils.module_loading import import_string
 
 from mako.template import Template as MakoTemplate
+from mako.exceptions import RichTraceback
 from mako import exceptions as mako_exceptions
 
 
@@ -164,7 +165,38 @@ class Template(object):
             context['csrf_input'] = csrf_input_lazy(request)
             context['csrf_token'] = csrf_token_lazy(request)
 
-        return self.template.render(**context)
+        try:
+            return self.template.render(**context)
+        except Exception as e:
+            traceback = RichTraceback()
+
+            source = traceback.source
+            if not source:
+                # There's no template source lines then raise
+                raise e
+
+            source = source.split('\n')
+            line = traceback.lineno
+            top = max(0, line - 4)
+            bottom = min(len(source), line + 5)
+            source_lines = [(i + 1, source[i]) for i in range(top, bottom)]
+
+            e.template_debug = {
+                'name': traceback.records[5][4],
+                'message': '{}: {}'.format(
+                    traceback.errorname, traceback.message),
+                'source_lines': source_lines,
+                'line': line,
+                'during': source_lines[line - top - 1][1],
+                'total': bottom - top,
+                'bottom': bottom,
+                'top': top + 1,
+                # mako's RichTraceback doesn't return column number
+                'before': '',
+                'after': '',
+            }
+
+            raise e
 
     @staticmethod
     def get_reverse_url():
