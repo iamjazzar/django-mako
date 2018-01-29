@@ -73,10 +73,13 @@ An example of how to use this library in Class-Based view and
 Function-Based Views is inside [niceapp](https://github.com/ahmedaljazzar/django-mako/tree/master/niceapp)
 app.
 
+## Errors?
+To test how this engine handles errors, just run theserver and go to this path [/mako]().
+
 ## Detailed Explanation?
 You can find a detailed explanation of how I implemented this library 
 in my blog post named [Integrating third-party templates' libraries with Django](https://ahmedjazzar.com/single-post/Mako-Django).
 
 ## License
 The MIT License (MIT)
-Copyright (c) 2017 Ahmed Jazzar <me@ahmedjazzar.com>
+Copyright (c) 2018 Ahmed Jazzar <me@ahmedjazzar.com>
