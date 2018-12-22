@@ -82,4 +82,4 @@ in my blog post named [Integrating third-party templates' libraries with Django]
 
 ## License
 The MIT License (MIT)
-Copyright (c) 2018 Ahmed Jazzar <me@ahmedjazzar.com>
+Copyright (c) 2017-2019 Ahmed Jazzar <me@ahmedjazzar.com>
