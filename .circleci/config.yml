@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/django-mako
+    docker:
+      - image: circleci/python:3.6.7
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - run:
+          command: |
+            pip install -r requirements.txt
+      - run:
+          command: |
+            python manage.py test
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: tr1

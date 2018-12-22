@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.views.generic import TemplateView
 
 
@@ -19,9 +19,10 @@ def function_based_view(request, engine):
     else:
         template_name = 'django.html'
 
-    return render_to_response(
+    return render(
         template_name=template_name,
         context=context,
+        request=request,
         using=engine,
     )
 
@@ -38,7 +39,6 @@ class ClassBasedView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ClassBasedView, self).get_context_data(**kwargs)
         engine = kwargs['engine']
-        print context
         context.update({
             'items': [
                 'Wow',
