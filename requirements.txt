@@ -1,2 +1,2 @@
-django==2.1.4
+Django>=1.11.3
 Mako==1.0.7
