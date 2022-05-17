@@ -3,11 +3,11 @@ import tempfile
 
 from django.conf import settings
 from django.template import TemplateDoesNotExist, TemplateSyntaxError
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
 from mako.exceptions import SyntaxException
 from mako.template import Template as MakoTemplate
 
-from djangomako.backends import MakoEngine, Template, MakoBackend
+from djangomako.backends import MakoBackend, MakoEngine, Template
 
 
 class MakoEngineTests(TestCase):

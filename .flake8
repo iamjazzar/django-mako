@@ -1,0 +1,3 @@
+[flake8]
+exclude = .git,__pycache__,docs,migrations,node_modules,config,deploy
+max-line-length = 88

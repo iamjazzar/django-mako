@@ -11,18 +11,14 @@ get_template() and optionally from_string().
 import tempfile
 
 from django import get_version
-from django.templatetags.static import static
 from django.template import TemplateDoesNotExist, TemplateSyntaxError
 from django.template.backends.base import BaseEngine
-from django.template.backends.utils import (
-    csrf_input_lazy,
-    csrf_token_lazy,
-)
+from django.template.backends.utils import csrf_input_lazy, csrf_token_lazy
+from django.templatetags.static import static
 from django.utils.module_loading import import_string
-
-from mako.template import Template as MakoTemplate
-from mako.exceptions import RichTraceback
 from mako import exceptions as mako_exceptions
+from mako.exceptions import RichTraceback
+from mako.template import Template as MakoTemplate
 
 
 class MakoEngine(object):
@@ -55,10 +51,22 @@ class MakoEngine(object):
         """
         Compiles the template code and return the compiled version.
 
+        Warning: Mako templates allow HTML/JS rendering by default and are
+                 inherently open to XSS attacks. Ensure variables in all
+                 templates are properly sanitized via the 'n', 'h' or 'x'
+                 flags (depending on context). For example, to HTML escape
+                 the variable 'data' do ${ data |h }.
+
+            Severity: Medium   Confidence: High
+            CWE: CWE-80 (https://cwe.mitre.org/data/definitions/80.html)
+            Location: ./djangomako/backends.py:57:15
+            More Info:
+                https://bandit.readthedocs.io/en/1.7.4/plugins/b702_use_of_mako_templates.html
+
         :param template_code: Textual template source.
         :return: Returns a compiled Mako template.
         """
-        return MakoTemplate(template_code, lookup=self.lookup)
+        return MakoTemplate(template_code, lookup=self.lookup)  # nosec
 
 
 class MakoBackend(BaseEngine):
