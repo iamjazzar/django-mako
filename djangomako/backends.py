@@ -30,16 +30,16 @@ class MakoEngine(object):
     This is the engine that handles getting the template and
     compiling the template the code.
     """
+
     def __init__(self, **options):
         """
         :param options: The template options that are passed to the
         template lookup class.
         """
-        environment = options.pop(
-            'environment', 'mako.lookup.TemplateLookup')
+        environment = options.pop("environment", "mako.lookup.TemplateLookup")
         # Just to get a dotted module path as an/a attribute/class
         Environment = import_string(environment)
-        self.context_processors = options.pop('context_processors', [])
+        self.context_processors = options.pop("context_processors", [])
         self.lookup = Environment(**options)
 
     def get_template(self, name):
@@ -68,7 +68,7 @@ class MakoBackend(BaseEngine):
 
     # Name of the subdirectory containing the templates for Mako engine
     # inside an installed application.
-    app_dirname = 'mako'
+    app_dirname = "mako"
 
     def __init__(self, parameters):
         """
@@ -81,22 +81,23 @@ class MakoBackend(BaseEngine):
                        define in your settings file.
         """
         params = parameters.copy()
-        options = params.pop('OPTIONS').copy()
+        options = params.pop("OPTIONS").copy()
         super(MakoBackend, self).__init__(params)
 
         # Approximate size of the collection used to store templates.
-        options.setdefault('collection_size', 5000)
-        options.setdefault('module_directory', tempfile.gettempdir())
-        options.setdefault('output_encoding', 'utf-8')
-        options.setdefault('input_encoding', 'utf-8')
-        options.setdefault('encoding_errors', 'replace')
-        options.setdefault('filesystem_checks', True)
+        options.setdefault("collection_size", 5000)
+        options.setdefault("module_directory", tempfile.gettempdir())
+        options.setdefault("output_encoding", "utf-8")
+        options.setdefault("input_encoding", "utf-8")
+        options.setdefault("encoding_errors", "replace")
+        options.setdefault("filesystem_checks", True)
         # A list of directory names which will be searched for a
         # particular template URI
-        options.setdefault('directories', self.template_dirs)
+        options.setdefault("directories", self.template_dirs)
 
-        self.template_class = import_string(options.pop(
-            'template_class', 'djangomako.backends.Template'))
+        self.template_class = import_string(
+            options.pop("template_class", "djangomako.backends.Template")
+        )
 
         self.engine = MakoEngine(**options)
 
@@ -138,6 +139,7 @@ class Template(object):
     won't provide a BaseTemplate class because it would have only one
     abstract method.
     """
+
     def __init__(self, template):
         self.template = template
 
@@ -154,16 +156,16 @@ class Template(object):
         if context is None:
             context = {}
 
-        context['static'] = static
-        context['url'] = self.get_reverse_url()
+        context["static"] = static
+        context["url"] = self.get_reverse_url()
 
         if request is not None:
             # As Django doesn't have a global request object,
             # it's useful to put it in the context.
-            context['request'] = request
+            context["request"] = request
             # Passing the CSRF token is mandatory.
-            context['csrf_input'] = csrf_input_lazy(request)
-            context['csrf_token'] = csrf_token_lazy(request)
+            context["csrf_input"] = csrf_input_lazy(request)
+            context["csrf_token"] = csrf_token_lazy(request)
 
         try:
             return self.template.render(**context)
@@ -175,32 +177,31 @@ class Template(object):
                 # There's no template source lines then raise
                 raise e
 
-            source = source.split('\n')
+            source = source.split("\n")
             line = traceback.lineno
             top = max(0, line - 4)
             bottom = min(len(source), line + 5)
             source_lines = [(i + 1, source[i]) for i in range(top, bottom)]
 
             e.template_debug = {
-                'name': traceback.records[5][4],
-                'message': '{}: {}'.format(
-                    traceback.errorname, traceback.message),
-                'source_lines': source_lines,
-                'line': line,
-                'during': source_lines[line - top - 1][1],
-                'total': bottom - top,
-                'bottom': bottom,
-                'top': top + 1,
+                "name": traceback.records[5][4],
+                "message": "{}: {}".format(traceback.errorname, traceback.message),
+                "source_lines": source_lines,
+                "line": line,
+                "during": source_lines[line - top - 1][1],
+                "total": bottom - top,
+                "bottom": bottom,
+                "top": top + 1,
                 # mako's RichTraceback doesn't return column number
-                'before': '',
-                'after': '',
+                "before": "",
+                "after": "",
             }
 
             raise e
 
     @staticmethod
     def get_reverse_url():
-        if get_version() < '2.0':
+        if get_version() < "2.0":
             from django.core.urlresolvers import reverse
         else:
             from django.urls import reverse
