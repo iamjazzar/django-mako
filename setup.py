@@ -8,7 +8,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="djangomako",
-    version="1.3.0",
+    version="1.3.1",
     packages=["djangomako"],
     install_requires=["Mako==1.2.2"],
     classifiers=[
