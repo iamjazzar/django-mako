@@ -10,7 +10,7 @@ setup(
     name="djangomako",
     version="1.3.2",
     packages=["djangomako"],
-    install_requires=["Mako==1.2.3"],
+    install_requires=["Mako==1.3.12"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
